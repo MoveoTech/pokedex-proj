@@ -3,16 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PokemonsComponent } from './pokemons/pokemons/pokemons.component';
+import { PokemonListComponent } from './pokemons/pokemon-list/pokemon-list.component';
+import { PokemonItemComponent } from './pokemons/pokemon-list/pokemon-item/pokemon-item.component';
+import { PokemonDetailsComponent } from './pokemons/pokemon-details/pokemon-details.component';
+import { PokemonsComponent } from './pokemons/pokemons.component';
+import { HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PokemonsComponent
+    PokemonsComponent,
+    PokemonListComponent,
+    PokemonItemComponent,
+    PokemonDetailsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
