@@ -1,4 +1,9 @@
 export interface IPokemon {
+    id: number,
     name: string,
-    url: string
+    image: string,
+    weight: number,
+    height: number,
+    stats: [],
+    abilities: []
   }

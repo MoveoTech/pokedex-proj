@@ -1,1 +1,16 @@
-<p>pokemon-details works!</p>
+
+<div class="details" *ngIf="pokemon">
+    <div>
+        <a routerLink="/pokemons">Back</a>
+    </div>
+    <div class="card-content">
+        <h3>{{pokemon.name}}</h3>
+
+    </div>
+    <img [src]="pokemon.image" class="card-image"/>
+
+    <div class="more-details">
+        <p>Weight: {{pokemon.weight}}</p>
+        <p>Height: {{pokemon.height}}</p>
+    </div>
+</div>

@@ -1,1 +1,5 @@
-<p>pokemon-list works!</p>
+<div class="card-grid">
+    <div *ngFor="let pokemonEl of pokemons">
+        <app-pokemon-item [pokemon]="pokemonEl"></app-pokemon-item>
+    </div>
+</div>

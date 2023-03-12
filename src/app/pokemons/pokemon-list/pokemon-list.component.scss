@@ -1,0 +1,7 @@
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); // creates columns that fit the available space, with a minimum width of 300px
+    gap: 20px; // adds spacing between the cards
+    justify-items: center; // centers the cards horizontally
+  
+}

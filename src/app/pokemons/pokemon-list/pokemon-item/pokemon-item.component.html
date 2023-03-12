@@ -1,1 +1,7 @@
-<p>pokemon-item works!</p>
+<div class="card" [routerLink]="[pokemon.id]" (click)="onSelectPokemon()">
+    <div class="card-content">
+        <h3>{{pokemon.name}}</h3>
+
+    </div>
+    <img [src]="pokemon.image" class="card-image"/>
+</div>

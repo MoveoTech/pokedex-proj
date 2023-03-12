@@ -4,5 +4,10 @@ export interface IApiObject {
     count: number,
     next: null | string,
     previous: null | string,
-    results: IPokemon[]
+    results: []
+}
+
+export interface IPokemonObj {
+    name: string,
+    url: string
 }
