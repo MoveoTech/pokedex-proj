@@ -1,5 +1,4 @@
-
-<div class="details" *ngIf="pokemon">
+<div class="pokemon-details" *ngIf="pokemon; else elseBlock">
     <div>
         <a routerLink="/pokemons">Back</a>
     </div>
@@ -7,10 +6,17 @@
         <h3>{{pokemon.name}}</h3>
 
     </div>
-    <img [src]="pokemon.image" class="card-image"/>
+    <div class="image-wrapper">
+        <img [src]="pokemon.image" class="card-image" />
+    </div>
 
-    <div class="more-details">
-        <p>Weight: {{pokemon.weight}}</p>
-        <p>Height: {{pokemon.height}}</p>
+    <div class="stats">
+        <p class="stat"><span class="stat__label">Weight:</span> <span class="stat__value">{{pokemon.weight}}</span></p>
+        <p class="stat"><span class="stat__label">Height:</span>  <span class="stat__value">{{pokemon.height}}</span></p>
     </div>
 </div>
+<ng-template #elseBlock>
+    <p>
+        No pokemon to show
+    </p>
+</ng-template>

@@ -1,4 +1,3 @@
-import { IPokemon } from "./pokemon.model";
 
 export interface IApiObject {
     count: number,

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, Subject } from 'rxjs';
+import { forkJoin, Observable, Subject } from 'rxjs';
 import { IApiObject, IPokemonObj } from '../pokemons/models/apiObject.model';
 import { IPokemon } from '../pokemons/models/pokemon.model';
 
@@ -10,6 +10,7 @@ import { IPokemon } from '../pokemons/models/pokemon.model';
 export class PokemonService {
 
   pokemons: IPokemon[] = []
+  singlePokemon: IPokemon | null = null
   urls = []
   pokemonsChanged: Subject<IPokemon[]> = new Subject()
   constructor(private http: HttpClient) { }
@@ -17,21 +18,20 @@ export class PokemonService {
   fetchPokemons() {
     this.http.get<IApiObject>('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100/').subscribe(res => {
       const pokemons = res.results;
-  const pokemonDataRequests = pokemons.map((pokemon: IPokemonObj) => {
+  const pokemonDataRequests: Observable<any>[] = pokemons.map((pokemon: IPokemonObj) => {
     return this.http.get(pokemon.url);
   });
-  forkJoin(pokemonDataRequests).subscribe((pokemonData: any) => {
+  
+  forkJoin(pokemonDataRequests).subscribe((pokemonData: IPokemon[]) => {
     console.log('pok data',pokemonData);
     
-    const pokemonArray = pokemonData.map((data: any, index: number) => {
+    const pokemonArray = pokemonData.map((data: IPokemon) => {
       return {
-        id: index,
+        id: data.id,
         name: data.name,
-        image: data.sprites.other['official-artwork'].front_default,
+        image: data.sprites?.other? data.sprites.other['official-artwork'].front_default : '',
         weight: data.weight,
         height: data.height,
-        stats: data.stats,
-        abilities: data.abilities
       };
     });
     this.pokemons = pokemonArray
@@ -40,9 +40,8 @@ export class PokemonService {
   })
 }
 
-  getPokemon(id: number): IPokemon {
-
-    return this.pokemons.filter(pokemon => pokemon.id === id)[0]
+  getPokemon(id: number): Observable<IPokemon> {
+      return this.http.get<IPokemon>(`https://pokeapi.co/api/v2/pokemon/${id}`)
   }
 
 }

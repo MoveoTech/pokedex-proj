@@ -20,7 +20,6 @@ export class PokemonsComponent implements OnInit, OnDestroy{
     this.pokemonService.fetchPokemons()
     this.Subscription = this.pokemonService.pokemonsChanged.subscribe((pokemons: IPokemon[]) => {
       this.pokemons = pokemons
-      console.log(this.pokemons)
     })
   }
 

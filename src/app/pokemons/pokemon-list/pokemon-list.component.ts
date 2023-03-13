@@ -10,7 +10,6 @@ export class PokemonListComponent implements OnChanges{
   @Input() pokemons: IPokemon[] = []
 
   ngOnChanges(): void {
-    console.log(this.pokemons)
   }
   
 }
