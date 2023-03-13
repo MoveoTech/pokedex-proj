@@ -1,15 +1,23 @@
-nav {
-    background-color: rgb(224, 197, 222);
-    height: 70px;
+@mixin flex-center-all {
     display: flex;
     align-items: center;
-    header {
-        display: flex;
-        h3 {
-            margin: 0;
-            padding: 0;
-            font-size: 2rem;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-        }
+    justify-content: center;
+  
+}
+nav {
+    @include flex-center-all;
+  header {
+    background-color: #ed6d12;
+    color: #fff;
+    font-family: sans-serif;
+    padding: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    h3 {
+      margin: 0;
+      padding: 0;
+      font-size: 2rem;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
+  }
 }
