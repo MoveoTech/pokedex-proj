@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouteParamsService } from 'src/app/services/route-params.service';
 import { IPokemon } from '../models/pokemon.model';
 
