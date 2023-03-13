@@ -6,16 +6,20 @@
 nav {
   @include flex-center-all;
   gap: 20px;
+  padding-block: 1rem;
   header {
     background-color: var(--clr1);
     color: #fff;
     padding: 20px;
     text-align: center;
     text-transform: uppercase;
+    border-radius: 7px;
     h3 {
       margin: 0;
       padding: 0;
       font-size: 2rem;
     }
   }
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.212);
 }

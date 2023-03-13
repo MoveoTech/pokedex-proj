@@ -4,8 +4,8 @@
 
     input[type="text"], select {
         background-color: #fff;
-        border: 2px solid #333333;
-        border-radius: 10px;
+        border: 2px solid #3e3e3e;
+        border-radius: 7px;
         color: #333333;
         font-size: 16px;
         padding: 10px 20px;
@@ -23,5 +23,6 @@
 
       select {
         text-transform: capitalize;
+        
       }
 }
