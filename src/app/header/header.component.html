@@ -2,5 +2,5 @@
     <header>
         <h3>Pokedex</h3>
     </header>
-    <app-pokemon-filter></app-pokemon-filter>
+    <app-pokemon-filter *ngIf="!currentRouteId"></app-pokemon-filter>
 </nav>

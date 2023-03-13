@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PokemonService } from 'src/app/services/pokemon.service';
+import { RouteParamsService } from 'src/app/services/route-params.service';
 import { IPokemon } from '../models/pokemon.model';
 
 @Component({
@@ -10,10 +11,10 @@ import { IPokemon } from '../models/pokemon.model';
 })
 export class PokemonDetailsComponent implements OnInit {
   pokemon: IPokemon | undefined;
-  id: number | undefined;
+  id: number | null = null;
 
 
-  constructor(private route: ActivatedRoute, private pokemonService: PokemonService){}
+  constructor(private route: ActivatedRoute, private pokemonService: PokemonService, private routeParamsService: RouteParamsService){}
 
     ngOnInit(): void {      
       this.route.params
@@ -31,6 +32,7 @@ export class PokemonDetailsComponent implements OnInit {
           }
           console.log(pokemonToShow)
           this.pokemon = pokemonToShow
+          this.routeParamsService.pokemonTrackId.next(this.id)
         })
         }
       );

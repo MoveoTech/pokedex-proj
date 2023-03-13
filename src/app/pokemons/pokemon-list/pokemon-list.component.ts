@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { RouteParamsService } from 'src/app/services/route-params.service';
 import { IPokemon } from '../models/pokemon.model';
 
 @Component({
@@ -6,10 +7,13 @@ import { IPokemon } from '../models/pokemon.model';
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss']
 })
-export class PokemonListComponent implements OnChanges{
+export class PokemonListComponent implements OnInit{
   @Input() pokemons: IPokemon[] = []
 
-  ngOnChanges(): void {
+  constructor(private routeParamsService: RouteParamsService){}
+
+  ngOnInit(): void {
+    this.routeParamsService.pokemonTrackId.next(null)
   }
   
 }
