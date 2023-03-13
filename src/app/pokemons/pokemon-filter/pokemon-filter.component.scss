@@ -12,7 +12,7 @@
         transition: border-color 0.3s ease;
       
         &:focus {
-          border-color: #ed6d12;
+          border-color: var(--clr1);
           outline: none;
         }
       

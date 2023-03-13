@@ -1,3 +1,7 @@
+:root {
+    --clr1: #ed6d12;
+
+}
 * {
     box-sizing: border-box;
 }
@@ -5,10 +9,13 @@
 body {
     margin: 0;
     font-family: sans-serif;
-
 }
 
 .main-layout {
     padding-inline: 5rem;
+}
+
+a {
+    all: unset;
 }
 

@@ -7,7 +7,7 @@ nav {
   @include flex-center-all;
   gap: 20px;
   header {
-    background-color: #ed6d12;
+    background-color: var(--clr1);
     color: #fff;
     padding: 20px;
     text-align: center;
