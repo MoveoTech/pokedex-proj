@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, Subject } from 'rxjs';
 import { IApiObject, IPokemonObj } from '../models/apiObject.model';
 import { IPokemon } from '../models/pokemon.model';
-
+import { pokemonApiUrl } from 'src/environment/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +16,7 @@ export class PokemonService {
 
   fetchPokemons() {
     this.http
-      .get<IApiObject>('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100/')
+      .get<IApiObject>(pokemonApiUrl + '?offset=0&limit=100')
       .subscribe((res) => {
         const pokemons = res.results;
         const pokemonDataRequests: Observable<any>[] = pokemons.map(
@@ -45,14 +45,17 @@ export class PokemonService {
   }
 
   getPokemon(id: number): Observable<IPokemon> {
-    return this.http.get<IPokemon>(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    return this.http.get<IPokemon>(pokemonApiUrl + id);
   }
 
   filterPokemonsByName(term: string) {
     const loweredCaseTerm = term.toLowerCase();
-    this.pokemonsChanged.next(
-      this.pokemons.filter((pokemon) => pokemon.name.includes(loweredCaseTerm))
+    let filteredPokemons: IPokemon[] = [];
+
+    filteredPokemons = this.pokemons.filter((pokemon) =>
+      pokemon.name.includes(loweredCaseTerm)
     );
+    this.pokemonsChanged.next(filteredPokemons);
   }
 
   filterPokemonsByType(typeName: string) {
@@ -60,11 +63,12 @@ export class PokemonService {
       this.pokemonsChanged.next(this.pokemons);
       return;
     }
-    const loweredTypeName = typeName.toLowerCase()
+    const loweredTypeName = typeName.toLowerCase();
     let filteredPokemons: IPokemon[] = [];
     this.pokemons.map((pokemon) => {
       pokemon.types?.map((pokemonType) => {
-        if (pokemonType.type.name === loweredTypeName) filteredPokemons.push(pokemon);
+        if (pokemonType.type.name === loweredTypeName)
+          filteredPokemons.push(pokemon);
       });
     });
     this.pokemonsChanged.next(filteredPokemons);
