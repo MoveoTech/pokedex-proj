@@ -3,7 +3,7 @@ export interface IPokemon {
   base_experience?: number;
   forms?: Species[];
   game_indices?: GameIndex[];
-  height: number;
+  height?: number;
   held_items?: any[];
   id: number;
   is_default?: boolean;
@@ -16,7 +16,7 @@ export interface IPokemon {
 sprites?: Sprites | undefined;
   stats?: Stat[];
   types?: Type[];
-  weight: number;
+  weight?: number;
   image: string;
 }
 

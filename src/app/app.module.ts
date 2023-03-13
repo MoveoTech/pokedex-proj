@@ -9,6 +9,8 @@ import { PokemonDetailsComponent } from './pokemons/pokemon-details/pokemon-deta
 import { PokemonsComponent } from './pokemons/pokemons.component';
 import { HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
+import { PokemonFilterComponent } from './pokemons/pokemon-filter/pokemon-filter.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,11 +19,13 @@ import { HeaderComponent } from './header/header.component';
     PokemonListComponent,
     PokemonItemComponent,
     PokemonDetailsComponent,
-    HeaderComponent
+    HeaderComponent,
+    PokemonFilterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [],

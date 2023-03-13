@@ -22,17 +22,15 @@ export class PokemonService {
     return this.http.get(pokemon.url);
   });
   
-  forkJoin(pokemonDataRequests).subscribe((pokemonData: IPokemon[]) => {
-    console.log('pok data',pokemonData);
-    
+  forkJoin(pokemonDataRequests).subscribe((pokemonData: IPokemon[]) => {    
     const pokemonArray = pokemonData.map((data: IPokemon) => {
       return {
         id: data.id,
         name: data.name,
         image: data.sprites?.other? data.sprites.other['official-artwork'].front_default : '',
-        weight: data.weight,
         height: data.height,
-        types: data.types
+        weight: data.weight,
+        type: data.types
       };
     });
     this.pokemons = pokemonArray
@@ -43,6 +41,11 @@ export class PokemonService {
 
   getPokemon(id: number): Observable<IPokemon> {
       return this.http.get<IPokemon>(`https://pokeapi.co/api/v2/pokemon/${id}`)
+  }
+
+  filterPokemons(term: string) {
+    const loweredCaseTerm = term.toLowerCase()
+    this.pokemonsChanged.next(this.pokemons.filter(pokemon => pokemon.name.includes(loweredCaseTerm)))
   }
 
 }

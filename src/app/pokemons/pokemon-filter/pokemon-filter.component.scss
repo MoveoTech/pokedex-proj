@@ -1,0 +1,18 @@
+input[type="text"] {
+    background-color: #fff;
+    border: 2px solid #333333;
+    border-radius: 10px;
+    color: #333333;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: border-color 0.3s ease;
+  
+    &:focus {
+      border-color: #ed6d12;
+      outline: none;
+    }
+  
+    &::placeholder {
+      color: #999999;
+    }
+  }
