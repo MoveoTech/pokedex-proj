@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PokemonService } from 'src/app/services/pokemon.service';
-
+import { POKEMONTYPES } from '../constants/pokemonTypesData';
 @Component({
   selector: 'app-pokemon-filter',
   templateUrl: './pokemon-filter.component.html',
@@ -8,7 +8,7 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 })
 export class PokemonFilterComponent {
   searchTerm: string = ''
-  pokemonTypes: string[] = ['normal', 'fire', 'water', 'grass', 'electric', 'poison', 'ice', 'fighting', 'flying']
+  pokemonTypes: string[] = POKEMONTYPES
   selectedType: string = ''
   constructor(private pokemonService: PokemonService){}
 

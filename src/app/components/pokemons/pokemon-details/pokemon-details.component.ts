@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { RouteParamsService } from 'src/app/services/route-params.service';
-import { IPokemon } from '../models/pokemon.model';
+import { IPokemon } from '../../../models/pokemon.model';
 
 @Component({
   selector: 'app-pokemon-details',
@@ -30,7 +30,6 @@ export class PokemonDetailsComponent implements OnInit {
             height: pokemonData.height,
             types: pokemonData.types
           }
-          console.log(pokemonToShow)
           this.pokemon = pokemonToShow
           this.routeParamsService.pokemonTrackId.next(this.id)
         })

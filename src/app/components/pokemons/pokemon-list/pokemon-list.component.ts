@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RouteParamsService } from 'src/app/services/route-params.service';
-import { IPokemon } from '../models/pokemon.model';
+import { IPokemon } from '../../../models/pokemon.model';
 
 @Component({
   selector: 'app-pokemon-list',

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, Subject } from 'rxjs';
-import { IApiObject, IPokemonObj } from '../pokemons/models/apiObject.model';
-import { IPokemon } from '../pokemons/models/pokemon.model';
+import { IApiObject, IPokemonObj } from '../models/apiObject.model';
+import { IPokemon } from '../models/pokemon.model';
 
 @Injectable({
   providedIn: 'root',
