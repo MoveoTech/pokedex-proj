@@ -1,22 +1,29 @@
-<div class="pokemon-details" *ngIf="pokemon; else elseBlock">
-    <div>
-        <a routerLink="/pokemons">Back</a>
+<div class="details-container">
+    <div class="pokemon-details" *ngIf="pokemon; else elseBlock">
+        <div class="back-btn">
+            <a routerLink="/pokemons">Back</a>
+        </div>
+        <div class="pokemon-name">
+            <h3>{{pokemon.name}}</h3>
+    
+        </div>
+        <div class="image-wrapper">
+            <img [src]="pokemon.image" class="card-image" />
+        </div>
+        <div class="stats">
+            <p class="stat"><span class="stat__label">Weight:</span> <span class="stat__value">{{pokemon.weight}}</span></p>
+            <p class="stat"><span class="stat__label">Height:</span>  <span class="stat__value">{{pokemon.height}}</span></p>
+        </div>
+        <div class="types">
+            <p class="stat"><span class="stat__label">Types:</span></p>
+            <ul>
+                <li *ngFor="let type of pokemon.types">{{type.type.name}}</li>
+            </ul>
+        </div>
     </div>
-    <div class="card-content">
-        <h3>{{pokemon.name}}</h3>
-
-    </div>
-    <div class="image-wrapper">
-        <img [src]="pokemon.image" class="card-image" />
-    </div>
-
-    <div class="stats">
-        <p class="stat"><span class="stat__label">Weight:</span> <span class="stat__value">{{pokemon.weight}}</span></p>
-        <p class="stat"><span class="stat__label">Height:</span>  <span class="stat__value">{{pokemon.height}}</span></p>
-    </div>
+    <ng-template #elseBlock>
+        <p>
+            No pokemon to show
+        </p>
+    </ng-template>
 </div>
-<ng-template #elseBlock>
-    <p>
-        No pokemon to show
-    </p>
-</ng-template>

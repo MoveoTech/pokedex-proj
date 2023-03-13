@@ -32,6 +32,7 @@ export class PokemonService {
         image: data.sprites?.other? data.sprites.other['official-artwork'].front_default : '',
         weight: data.weight,
         height: data.height,
+        types: data.types
       };
     });
     this.pokemons = pokemonArray

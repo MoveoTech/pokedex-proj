@@ -26,8 +26,10 @@ export class PokemonDetailsComponent implements OnInit {
             name: pokemonData.name,
             image: pokemonData.sprites?.other? pokemonData.sprites.other['official-artwork'].front_default : '',
             weight: pokemonData.weight,
-            height: pokemonData.height
+            height: pokemonData.height,
+            types: pokemonData.types
           }
+          console.log(pokemonToShow)
           this.pokemon = pokemonToShow
         })
         }
