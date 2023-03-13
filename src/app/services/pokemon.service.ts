@@ -5,47 +5,68 @@ import { IApiObject, IPokemonObj } from '../pokemons/models/apiObject.model';
 import { IPokemon } from '../pokemons/models/pokemon.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PokemonService {
-
-  pokemons: IPokemon[] = []
-  singlePokemon: IPokemon | null = null
-  urls = []
-  pokemonsChanged: Subject<IPokemon[]> = new Subject()
-  constructor(private http: HttpClient) { }
+  pokemons: IPokemon[] = [];
+  singlePokemon: IPokemon | null = null;
+  urls = [];
+  pokemonsChanged: Subject<IPokemon[]> = new Subject();
+  constructor(private http: HttpClient) {}
 
   fetchPokemons() {
-    this.http.get<IApiObject>('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100/').subscribe(res => {
-      const pokemons = res.results;
-  const pokemonDataRequests: Observable<any>[] = pokemons.map((pokemon: IPokemonObj) => {
-    return this.http.get(pokemon.url);
-  });
-  
-  forkJoin(pokemonDataRequests).subscribe((pokemonData: IPokemon[]) => {    
-    const pokemonArray = pokemonData.map((data: IPokemon) => {
-      return {
-        id: data.id,
-        name: data.name,
-        image: data.sprites?.other? data.sprites.other['official-artwork'].front_default : '',
-        height: data.height,
-        weight: data.weight,
-        type: data.types
-      };
-    });
-    this.pokemons = pokemonArray
-    this.pokemonsChanged.next(pokemonArray)
-    })
-  })
-}
+    this.http
+      .get<IApiObject>('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100/')
+      .subscribe((res) => {
+        const pokemons = res.results;
+        const pokemonDataRequests: Observable<any>[] = pokemons.map(
+          (pokemon: IPokemonObj) => {
+            return this.http.get(pokemon.url);
+          }
+        );
+
+        forkJoin(pokemonDataRequests).subscribe((pokemonData: IPokemon[]) => {
+          const pokemonArray = pokemonData.map((data: IPokemon) => {
+            return {
+              id: data.id,
+              name: data.name,
+              image: data.sprites?.other
+                ? data.sprites.other['official-artwork'].front_default
+                : '',
+              height: data.height,
+              weight: data.weight,
+              types: data.types,
+            };
+          });
+          this.pokemons = pokemonArray;
+          this.pokemonsChanged.next(pokemonArray);
+        });
+      });
+  }
 
   getPokemon(id: number): Observable<IPokemon> {
-      return this.http.get<IPokemon>(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    return this.http.get<IPokemon>(`https://pokeapi.co/api/v2/pokemon/${id}`);
   }
 
-  filterPokemons(term: string) {
-    const loweredCaseTerm = term.toLowerCase()
-    this.pokemonsChanged.next(this.pokemons.filter(pokemon => pokemon.name.includes(loweredCaseTerm)))
+  filterPokemonsByName(term: string) {
+    const loweredCaseTerm = term.toLowerCase();
+    this.pokemonsChanged.next(
+      this.pokemons.filter((pokemon) => pokemon.name.includes(loweredCaseTerm))
+    );
   }
 
+  filterPokemonsByType(typeName: string) {
+    if (!typeName) {
+      this.pokemonsChanged.next(this.pokemons);
+      return;
+    }
+    const loweredTypeName = typeName.toLowerCase()
+    let filteredPokemons: IPokemon[] = [];
+    this.pokemons.map((pokemon) => {
+      pokemon.types?.map((pokemonType) => {
+        if (pokemonType.type.name === loweredTypeName) filteredPokemons.push(pokemon);
+      });
+    });
+    this.pokemonsChanged.next(filteredPokemons);
+  }
 }

@@ -8,10 +8,15 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 })
 export class PokemonFilterComponent {
   searchTerm: string = ''
-
+  pokemonTypes: string[] = ['normal', 'fire', 'water', 'grass', 'electric', 'poison', 'ice', 'fighting', 'flying']
+  selectedType: string = ''
   constructor(private pokemonService: PokemonService){}
 
   onSearchPokemons() {
-    this.pokemonService.filterPokemons(this.searchTerm)
+    this.pokemonService.filterPokemonsByName(this.searchTerm)
+  }
+
+  onSelectPokemonType() {
+    this.pokemonService.filterPokemonsByType(this.selectedType)
   }
 }
