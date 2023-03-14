@@ -1,17 +1,18 @@
 :root {
   --clr1: #ed6d12;
-
+    --clr2: #f8f8f8;
   .main-btn {
-    background-color: var(--clr1);
-    color: #fff;
+    background-color: var(--clr2);
+    color: #0f0f0f;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    border: 1px solid var(--clr1);
     &:hover {
-      background-color: darken(#ed6d12, 10%);
+      background-color: darken(#fff, 10%);
     }
   }
 
@@ -19,6 +20,31 @@
     margin: 0;
     padding-block-start: 3px;
     color: red;
+  }
+
+  input[type="text"],
+  select {
+    background-color: #fff;
+    border: 2px solid #3e3e3e;
+    border-radius: 7px;
+    color: #333333;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: var(--clr1);
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #999999;
+    }
+  }
+
+  select {
+    text-transform: capitalize;
+    max-height: 42px;
   }
 }
 @mixin flex-center-all {
@@ -43,7 +69,9 @@ body {
 a {
   all: unset;
 }
-
+h1,h2,h3 {
+    margin: 0;
+}
 ul {
     margin: 0;
     padding: 0;

@@ -16,7 +16,7 @@ export class PokemonListComponent implements OnInit, OnDestroy{
   constructor(private routeParamsService: RouteParamsService, private authService: AuthService, private router: Router){}
 
   ngOnInit(): void {
-    this.routeParamsService.pokemonTrackId.next(null)
+    this.routeParamsService.paramTrackSubject.next(false)
     this.loginSub = this.authService.loginStream.subscribe(isLogged => {
       if(!isLogged) this.router.navigate(['/login'])
     })

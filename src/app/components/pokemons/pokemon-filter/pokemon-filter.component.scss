@@ -1,33 +1,10 @@
 .pokemon-filter {
   display: flex;
   gap: 14px;
-
-
+  padding-block: 14px;
+  justify-content: center;
   .search-container {
     max-width: 210px;
   }
-  input[type="text"],
-  select {
-    background-color: #fff;
-    border: 2px solid #3e3e3e;
-    border-radius: 7px;
-    color: #333333;
-    font-size: 16px;
-    padding: 10px 20px;
-    transition: border-color 0.3s ease;
 
-    &:focus {
-      border-color: var(--clr1);
-      outline: none;
-    }
-
-    &::placeholder {
-      color: #999999;
-    }
-  }
-
-  select {
-    text-transform: capitalize;
-    max-height: 42px;
-  }
 }

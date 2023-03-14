@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { IPokemon } from 'src/app/models/pokemon.model';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
@@ -7,13 +8,19 @@ import { PokemonService } from 'src/app/services/pokemon.service';
   templateUrl: './pokemon-search-list.component.html',
   styleUrls: ['./pokemon-search-list.component.scss'],
 })
-export class PokemonSearchListComponent implements OnInit {
+export class PokemonSearchListComponent implements OnInit, OnDestroy {
   pokemonsToShow: IPokemon[] | null = null
+  searchedPokemonSub!: Subscription
   constructor(private pokemonService: PokemonService) {}
   ngOnInit(): void {
-    this.pokemonService.pokemonsSearch.subscribe(searchedPokemons => {
+    if (!this.pokemonService.pokemons.length) this.pokemonService.fetchPokemons()
+    this.searchedPokemonSub = this.pokemonService.pokemonsSearch.subscribe(searchedPokemons => {
       this.pokemonsToShow = searchedPokemons
       
     })
+  }
+
+  ngOnDestroy(): void {
+    this.searchedPokemonSub.unsubscribe()
   }
 }

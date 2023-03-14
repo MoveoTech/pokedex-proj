@@ -1,9 +1,13 @@
 <div class="search-log">
-    <h3>pokemon search history</h3>
+        <h3>pokemon search history</h3>
     <ul>
         <li *ngFor="let searchedPokemon of recentPokemons">
             <img [src]="searchedPokemon.imageUrl" [alt]="searchedPokemon.name">
             <span>{{searchedPokemon.name}}</span>
         </li>
     </ul>
+    <div class="search-container">
+        <input type="text" placeholder="Search Pokemons" [(ngModel)]="searchTerm" (input)="onSearchPokemons()">
+        <app-pokemon-search-list></app-pokemon-search-list>
+    </div>
 </div>

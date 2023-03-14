@@ -1,6 +1,7 @@
 @use '../../../styles.scss' as style;
 nav {
   @include style.flex-center-all;
+  justify-content: flex-start;
   gap: 20px;
   padding-block: 14px;
   position: relative;
@@ -19,10 +20,19 @@ nav {
     }
   }
   border-bottom: 1px solid rgba(0, 0, 0, 0.212);
+  .header-btns {
+    .logout-btn {
+      position: absolute;
+      right: 14px;
+  
+      @media(max-width: 550px) {
+        position: static;
+      }
+  }
 
-  .logout-btn {
-    position: absolute;
-    right: 14px;
-}
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  }
 
 }

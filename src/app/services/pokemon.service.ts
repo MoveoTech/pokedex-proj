@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, Subject } from 'rxjs';
 import { IApiObject, IPokemonObj } from '../models/apiObject.model';
-import { IPokemon } from '../models/pokemon.model';
+import { IMiniPokemon, IPokemon } from '../models/pokemon.model';
 import { StorageService } from './storage.service';
 import { environment } from 'src/environments/environment';
 
@@ -14,7 +14,8 @@ export class PokemonService {
   singlePokemon: IPokemon | null = null;
   pokemonsChanged: Subject<IPokemon[]> = new Subject();
   pokemonsSearch: Subject<IPokemon[] | null> = new Subject();
-  recentSearchedPokemons: number[] = this.loadPokemonSearchLog() || [];
+  pokemonsLogSubject: Subject<IMiniPokemon[]> = new Subject();
+  recentSearchedPokemons: IMiniPokemon[] = this.loadPokemonSearchLog() || [];
   constructor(private http: HttpClient, private storageService: StorageService) {}
 
   fetchPokemons() {
@@ -52,7 +53,7 @@ export class PokemonService {
     return this.http.get<IPokemon>(`${environment.pokemonApiUrl}${id}`);
   }
 
-  filterPokemonsByName(term: string) {
+  searchPokemonsByName(term: string) {
     if (!term) {
       this.pokemonsSearch.next(null);
       return;
@@ -82,11 +83,11 @@ export class PokemonService {
     this.pokemonsChanged.next(filteredPokemons);
   }
 
-  savePokemonToSearchLog(pokemonId: number) {
-    if (this.recentSearchedPokemons.includes(pokemonId)) return
-    else if (this.recentSearchedPokemons.length >= 5) this.recentSearchedPokemons.shift();
-    this.recentSearchedPokemons.push(pokemonId);
+  savePokemonToSearchLog(miniPokemon: IMiniPokemon) {
+    if (this.recentSearchedPokemons.length >= 5) this.recentSearchedPokemons.shift();
+    this.recentSearchedPokemons.push(miniPokemon);
     this.storageService.saveToStorage(environment.searchLogKey, this.recentSearchedPokemons)
+    this.pokemonsLogSubject.next(this.recentSearchedPokemons)
   }
 
   loadPokemonSearchLog() {

@@ -31,7 +31,7 @@ export class PokemonDetailsComponent implements OnInit {
             types: pokemonData.types
           }
           this.pokemon = pokemonToShow
-          this.routeParamsService.pokemonTrackId.next(this.id)
+          this.routeParamsService.paramTrackSubject.next(true)
         })
         }
       );

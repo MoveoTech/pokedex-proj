@@ -10,10 +10,9 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 })
 export class PokemonSearchItemComponent {
   @Input() miniPokemon!: IPokemon
-  constructor(private router: Router, private pokemonService: PokemonService) {}
+  constructor(private pokemonService: PokemonService) {}
 
   onSelectPokemonFromSearch() {
-    this.pokemonService.savePokemonToSearchLog(this.miniPokemon.id)
-    this.router.navigate(['/pokemons', this.miniPokemon.id]);
+    this.pokemonService.savePokemonToSearchLog(this.miniPokemon)
   }
 }

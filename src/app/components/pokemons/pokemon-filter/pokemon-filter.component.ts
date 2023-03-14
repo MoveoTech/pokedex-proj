@@ -7,15 +7,9 @@ import { POKEMON_TYPES } from '../constants/pokemonTypesData';
   styleUrls: ['./pokemon-filter.component.scss']
 })
 export class PokemonFilterComponent {
-  searchTerm: string = ''
   pokemonTypes: string[] = POKEMON_TYPES
   selectedType: string = ''
   constructor(private pokemonService: PokemonService){}
-
-
-  onSearchPokemons() {
-    this.pokemonService.filterPokemonsByName(this.searchTerm)
-  }
 
   onSelectPokemonType() {
     this.pokemonService.filterPokemonsByType(this.selectedType)

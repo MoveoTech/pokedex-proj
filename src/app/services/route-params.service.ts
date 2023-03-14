@@ -6,5 +6,5 @@ import { BehaviorSubject } from 'rxjs';
 })
 
 export class RouteParamsService {
-    pokemonTrackId = new BehaviorSubject<number | null>(null)
+    paramTrackSubject = new BehaviorSubject<boolean>(false)
 }
