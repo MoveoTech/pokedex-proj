@@ -9,9 +9,14 @@ import { POKEMON_TYPES } from '../constants/pokemonTypesData';
 export class PokemonFilterComponent {
   pokemonTypes: string[] = POKEMON_TYPES
   selectedType: string = ''
+  searchTerm: string = ''
   constructor(private pokemonService: PokemonService){}
 
   onSelectPokemonType() {
     this.pokemonService.filterPokemonsByType(this.selectedType)
+  }
+
+  onSearchPokemons() {
+    this.pokemonService.filterPokemonsByName(this.searchTerm)
   }
 }

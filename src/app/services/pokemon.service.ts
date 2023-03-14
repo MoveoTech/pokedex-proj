@@ -67,6 +67,13 @@ export class PokemonService {
     this.pokemonsSearch.next(filteredPokemons);
   }
 
+  filterPokemonsByName(term: string) {
+    const loweredCaseTerm = term.toLowerCase();
+    this.pokemonsChanged.next(
+      this.pokemons.filter((pokemon) => pokemon.name.includes(loweredCaseTerm))
+    );
+  }
+  
   filterPokemonsByType(typeName: string) {
     if (!typeName) {
       this.pokemonsChanged.next(this.pokemons);
