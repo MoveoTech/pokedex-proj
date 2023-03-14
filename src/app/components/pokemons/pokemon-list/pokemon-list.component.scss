@@ -1,7 +1,11 @@
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px; 
-    justify-items: center; 
-    padding-top: 20px;
+.main-page {
+
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px; 
+        justify-items: center; 
+        padding-top: 20px;
+    }
+
 }
