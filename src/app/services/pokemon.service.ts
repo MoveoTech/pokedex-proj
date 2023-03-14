@@ -20,7 +20,7 @@ export class PokemonService {
 
   fetchPokemons() {
     this.http
-      .get<IApiObject>(POKEMON_API_URL + '?offset=0&limit=100')
+      .get<IApiObject>(`${POKEMON_API_URL}?offset=0&limit=100`)
       .subscribe((res) => {
         const pokemons = res.results;
         const pokemonDataRequests: Observable<any>[] = pokemons.map(
@@ -50,7 +50,7 @@ export class PokemonService {
   }
 
   getPokemon(id: number): Observable<IPokemon> {
-    return this.http.get<IPokemon>(POKEMON_API_URL + id);
+    return this.http.get<IPokemon>(`${POKEMON_API_URL}${id}`);
   }
 
   filterPokemonsByName(term: string) {
@@ -87,7 +87,6 @@ export class PokemonService {
     if (this.recentSearchedPokemons.includes(pokemonId)) return
     else if (this.recentSearchedPokemons.length >= 5) this.recentSearchedPokemons.shift();
     this.recentSearchedPokemons.push(pokemonId);
-    console.log(this.recentSearchedPokemons)
     this.storageService.saveToStorage(SEARCH_LOG_KEY, this.recentSearchedPokemons)
   }
 

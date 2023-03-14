@@ -2,7 +2,7 @@
 nav {
   @include style.flex-center-all;
   gap: 20px;
-  padding-block: 1rem;
+  padding-block: 14px;
   position: relative;
   header {
     background-color: var(--clr1);
@@ -15,14 +15,14 @@ nav {
     h3 {
       margin: 0;
       padding: 0;
-      font-size: 2rem;
+      font-size: 28px;
     }
   }
   border-bottom: 1px solid rgba(0, 0, 0, 0.212);
 
   .logout-btn {
     position: absolute;
-    right: 1rem;
+    right: 14px;
 }
 
 }
