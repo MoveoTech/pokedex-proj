@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, Subject } from 'rxjs';
 import { IApiObject, IPokemonObj } from '../models/apiObject.model';
 import { IPokemon } from '../models/pokemon.model';
-import { POKEMON_API_URL } from 'src/environment/environment';
 import { StorageService } from './storage.service';
-import { SEARCH_LOG_KEY } from 'src/environment/environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +19,7 @@ export class PokemonService {
 
   fetchPokemons() {
     this.http
-      .get<IApiObject>(`${POKEMON_API_URL}?offset=0&limit=100`)
+      .get<IApiObject>(`${environment.pokemonApiUrl}?offset=0&limit=100`)
       .subscribe((res) => {
         const pokemons = res.results;
         const pokemonDataRequests: Observable<any>[] = pokemons.map(
@@ -50,7 +49,7 @@ export class PokemonService {
   }
 
   getPokemon(id: number): Observable<IPokemon> {
-    return this.http.get<IPokemon>(`${POKEMON_API_URL}${id}`);
+    return this.http.get<IPokemon>(`${environment.pokemonApiUrl}${id}`);
   }
 
   filterPokemonsByName(term: string) {
@@ -87,10 +86,10 @@ export class PokemonService {
     if (this.recentSearchedPokemons.includes(pokemonId)) return
     else if (this.recentSearchedPokemons.length >= 5) this.recentSearchedPokemons.shift();
     this.recentSearchedPokemons.push(pokemonId);
-    this.storageService.saveToStorage(SEARCH_LOG_KEY, this.recentSearchedPokemons)
+    this.storageService.saveToStorage(environment.searchLogKey, this.recentSearchedPokemons)
   }
 
   loadPokemonSearchLog() {
-    return this.storageService.loadFromStorage(SEARCH_LOG_KEY)
+    return this.storageService.loadFromStorage(environment.searchLogKey)
   }
 }
