@@ -4,15 +4,19 @@ import { forkJoin, Observable, Subject } from 'rxjs';
 import { IApiObject, IPokemonObj } from '../models/apiObject.model';
 import { IPokemon } from '../models/pokemon.model';
 import { POKEMON_API_URL } from 'src/environment/environment';
+import { StorageService } from './storage.service';
+import { SEARCH_LOG_KEY } from 'src/environment/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
   pokemons: IPokemon[] = [];
   singlePokemon: IPokemon | null = null;
-  urls = [];
   pokemonsChanged: Subject<IPokemon[]> = new Subject();
-  constructor(private http: HttpClient) {}
+  pokemonsSearch: Subject<IPokemon[] | null> = new Subject();
+  recentSearchedPokemons: number[] = this.loadPokemonSearchLog() || [];
+  constructor(private http: HttpClient, private storageService: StorageService) {}
 
   fetchPokemons() {
     this.http
@@ -30,7 +34,7 @@ export class PokemonService {
             return {
               id: data.id,
               name: data.name,
-              image: data.sprites?.other
+              imageUrl: data.sprites?.other
                 ? data.sprites.other['official-artwork'].front_default
                 : '',
               height: data.height,
@@ -38,6 +42,7 @@ export class PokemonService {
               types: data.types,
             };
           });
+
           this.pokemons = pokemonArray;
           this.pokemonsChanged.next(pokemonArray);
         });
@@ -49,13 +54,17 @@ export class PokemonService {
   }
 
   filterPokemonsByName(term: string) {
+    if (!term) {
+      this.pokemonsSearch.next(null);
+      return;
+    }
     const loweredCaseTerm = term.toLowerCase();
     let filteredPokemons: IPokemon[] = [];
 
     filteredPokemons = this.pokemons.filter((pokemon) =>
       pokemon.name.includes(loweredCaseTerm)
     );
-    this.pokemonsChanged.next(filteredPokemons);
+    this.pokemonsSearch.next(filteredPokemons);
   }
 
   filterPokemonsByType(typeName: string) {
@@ -72,5 +81,17 @@ export class PokemonService {
       });
     });
     this.pokemonsChanged.next(filteredPokemons);
+  }
+
+  savePokemonToSearchLog(pokemonId: number) {
+    if (this.recentSearchedPokemons.includes(pokemonId)) return
+    else if (this.recentSearchedPokemons.length >= 5) this.recentSearchedPokemons.shift();
+    this.recentSearchedPokemons.push(pokemonId);
+    console.log(this.recentSearchedPokemons)
+    this.storageService.saveToStorage(SEARCH_LOG_KEY, this.recentSearchedPokemons)
+  }
+
+  loadPokemonSearchLog() {
+    return this.storageService.loadFromStorage(SEARCH_LOG_KEY)
   }
 }

@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { LOGIN_TOKEN } from 'src/environment/environment';
 import { LOGIN_STORAGE_KEY } from 'src/environment/environment';
+import { StorageService } from './storage.service';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  constructor(private storageService: StorageService) {}
 
   loginStream: Subject<boolean> = new Subject();
   isLoggedIn: boolean = false;
 
   isAlreadyLogged() {
-    const savedLogIn = localStorage.getItem(LOGIN_STORAGE_KEY);
-    if (savedLogIn === 'true') this.isLoggedIn = true;
+    const savedLogIn = this.storageService.loadFromStorage(LOGIN_STORAGE_KEY)
+    if (savedLogIn) this.isLoggedIn = true;
     else this.isLoggedIn = false;
 
     this.loginStream.next(this.isLoggedIn);
@@ -21,7 +22,7 @@ export class AuthService {
 
   login(email: string) {
     if (email === LOGIN_TOKEN) {
-      localStorage.setItem(LOGIN_STORAGE_KEY, JSON.stringify(true));
+      this.storageService.saveToStorage(LOGIN_STORAGE_KEY, true)
       this.isLoggedIn = true;
     } else this.isLoggedIn = false;
 
@@ -30,7 +31,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem(LOGIN_STORAGE_KEY);
+    this.storageService.removeFromStorage(LOGIN_STORAGE_KEY)
     this.isLoggedIn = false;
     this.loginStream.next(this.isLoggedIn);
   }

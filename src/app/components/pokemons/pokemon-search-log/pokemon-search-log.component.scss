@@ -1,0 +1,22 @@
+@use '../../../../styles.scss' as style;
+.search-log {
+    height: calc(100vh - 110px);
+    text-transform: capitalize;
+    @include style.flex-center-all;
+    flex-direction: column;
+    justify-content: flex-start;
+    ul {
+        padding-inline: 25px;
+        background-color: #f7f7f7;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);    
+    }
+    li {    
+        display: flex;
+        align-items: center;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        }
+    }
+}

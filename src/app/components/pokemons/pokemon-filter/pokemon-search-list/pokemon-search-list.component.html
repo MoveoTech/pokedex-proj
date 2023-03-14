@@ -1,0 +1,7 @@
+<div class="search-list" *ngIf="pokemonsToShow">
+    <ul>
+        <li *ngFor="let pokemon of pokemonsToShow">
+            <app-pokemon-search-item [miniPokemon]="pokemon"></app-pokemon-search-item>
+        </li>
+    </ul>
+</div>

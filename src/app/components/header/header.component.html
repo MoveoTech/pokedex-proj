@@ -1,7 +1,12 @@
 <nav>
     <header>
-        <h3>Pokedex</h3>
+        <a routerLink="pokemons">
+            <h3>Pokedex</h3>
+        </a>
     </header>
     <app-pokemon-filter *ngIf="!currentRouteId"></app-pokemon-filter>
-    <button class="main-btn logout-btn" (click)="onLogout()" *ngIf="isUserLogged">Log out</button>
+    <div *ngIf="isUserLogged">
+        <button class="main-btn"><a routerLink="pokemons/search-log">Search Log</a></button>
+        <button class="main-btn logout-btn" (click)="onLogout()">Log out</button>
+    </div>
 </nav>

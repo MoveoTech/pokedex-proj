@@ -1,0 +1,9 @@
+<div class="search-log">
+    <h3>pokemon search history</h3>
+    <ul>
+        <li *ngFor="let searchedPokemon of recentPokemons">
+            <img [src]="searchedPokemon.imageUrl" [alt]="searchedPokemon.name">
+            <span>{{searchedPokemon.name}}</span>
+        </li>
+    </ul>
+</div>

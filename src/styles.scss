@@ -26,6 +26,7 @@
   align-items: center;
   justify-content: center;
 }
+
 * {
   box-sizing: border-box;
 }
@@ -41,4 +42,10 @@ body {
 
 a {
   all: unset;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }

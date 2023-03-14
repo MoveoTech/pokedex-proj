@@ -25,7 +25,7 @@ export class PokemonDetailsComponent implements OnInit {
           const pokemonToShow: IPokemon = {
             id: pokemonData.id,
             name: pokemonData.name,
-            image: pokemonData.sprites?.other? pokemonData.sprites.other['official-artwork'].front_default : '',
+            imageUrl: pokemonData.sprites?.other? pokemonData.sprites.other['official-artwork'].front_default : '',
             weight: pokemonData.weight,
             height: pokemonData.height,
             types: pokemonData.types
