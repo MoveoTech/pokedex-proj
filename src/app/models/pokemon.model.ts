@@ -1,3 +1,8 @@
+export interface IMiniPokemon {
+  name: string;
+  imageUrl: string;
+}
+
 export interface IPokemon {
   abilities?: Ability[];
   base_experience?: number;
@@ -13,11 +18,11 @@ export interface IPokemon {
   order?: number;
   past_types?: any[];
   species?: Species;
-sprites?: Sprites | undefined;
+  sprites?: Sprites | undefined;
   stats?: Stat[];
   types?: Type[];
   weight?: number;
-  image: string;
+  imageUrl: string;
 }
 
 export interface Ability {

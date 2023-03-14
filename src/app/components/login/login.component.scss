@@ -1,0 +1,41 @@
+$form-background-color: #f8f8f8;
+$form-border-color: #ccc;
+$form-input-background-color: #fff;
+$form-input-border-color: #ccc;
+@use "../../../styles.scss" as style;
+
+.login-container {
+  height: calc(100vh - 110px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  background-color: $form-background-color;
+  border: 1px solid $form-border-color;
+  padding: 20px;
+  border-radius: 5px;
+  min-width: 400px;
+
+  input[type="text"],
+  input[type="email"] {
+    background-color: $form-input-background-color;
+    border: 1px solid $form-input-border-color;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: var(--clr1);
+      box-shadow: 0 0 3px var(--clr1);
+    }
+
+  }
+
+  button {
+    margin-top: 20px;
+  }
+}

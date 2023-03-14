@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, Subject } from 'rxjs';
 import { IApiObject, IPokemonObj } from '../models/apiObject.model';
 import { IPokemon } from '../models/pokemon.model';
+import { StorageService } from './storage.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,13 +12,14 @@ import { IPokemon } from '../models/pokemon.model';
 export class PokemonService {
   pokemons: IPokemon[] = [];
   singlePokemon: IPokemon | null = null;
-  urls = [];
   pokemonsChanged: Subject<IPokemon[]> = new Subject();
-  constructor(private http: HttpClient) {}
+  pokemonsSearch: Subject<IPokemon[] | null> = new Subject();
+  recentSearchedPokemons: number[] = this.loadPokemonSearchLog() || [];
+  constructor(private http: HttpClient, private storageService: StorageService) {}
 
   fetchPokemons() {
     this.http
-      .get<IApiObject>('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100/')
+      .get<IApiObject>(`${environment.pokemonApiUrl}?offset=0&limit=100`)
       .subscribe((res) => {
         const pokemons = res.results;
         const pokemonDataRequests: Observable<any>[] = pokemons.map(
@@ -30,7 +33,7 @@ export class PokemonService {
             return {
               id: data.id,
               name: data.name,
-              image: data.sprites?.other
+              imageUrl: data.sprites?.other
                 ? data.sprites.other['official-artwork'].front_default
                 : '',
               height: data.height,
@@ -38,6 +41,7 @@ export class PokemonService {
               types: data.types,
             };
           });
+
           this.pokemons = pokemonArray;
           this.pokemonsChanged.next(pokemonArray);
         });
@@ -45,14 +49,21 @@ export class PokemonService {
   }
 
   getPokemon(id: number): Observable<IPokemon> {
-    return this.http.get<IPokemon>(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    return this.http.get<IPokemon>(`${environment.pokemonApiUrl}${id}`);
   }
 
   filterPokemonsByName(term: string) {
+    if (!term) {
+      this.pokemonsSearch.next(null);
+      return;
+    }
     const loweredCaseTerm = term.toLowerCase();
-    this.pokemonsChanged.next(
-      this.pokemons.filter((pokemon) => pokemon.name.includes(loweredCaseTerm))
+    let filteredPokemons: IPokemon[] = [];
+
+    filteredPokemons = this.pokemons.filter((pokemon) =>
+      pokemon.name.includes(loweredCaseTerm)
     );
+    this.pokemonsSearch.next(filteredPokemons);
   }
 
   filterPokemonsByType(typeName: string) {
@@ -60,13 +71,25 @@ export class PokemonService {
       this.pokemonsChanged.next(this.pokemons);
       return;
     }
-    const loweredTypeName = typeName.toLowerCase()
+    const loweredTypeName = typeName.toLowerCase();
     let filteredPokemons: IPokemon[] = [];
     this.pokemons.map((pokemon) => {
       pokemon.types?.map((pokemonType) => {
-        if (pokemonType.type.name === loweredTypeName) filteredPokemons.push(pokemon);
+        if (pokemonType.type.name === loweredTypeName)
+          filteredPokemons.push(pokemon);
       });
     });
     this.pokemonsChanged.next(filteredPokemons);
+  }
+
+  savePokemonToSearchLog(pokemonId: number) {
+    if (this.recentSearchedPokemons.includes(pokemonId)) return
+    else if (this.recentSearchedPokemons.length >= 5) this.recentSearchedPokemons.shift();
+    this.recentSearchedPokemons.push(pokemonId);
+    this.storageService.saveToStorage(environment.searchLogKey, this.recentSearchedPokemons)
+  }
+
+  loadPokemonSearchLog() {
+    return this.storageService.loadFromStorage(environment.searchLogKey)
   }
 }
