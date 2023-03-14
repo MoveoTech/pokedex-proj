@@ -10,7 +10,8 @@ import { PokemonsComponent } from './components/pokemons/pokemons.component';
 import { HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { PokemonFilterComponent } from './components/pokemons/pokemon-filter/pokemon-filter.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,14 @@ import { FormsModule } from '@angular/forms';
     PokemonItemComponent,
     PokemonDetailsComponent,
     HeaderComponent,
-    PokemonFilterComponent
+    PokemonFilterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],

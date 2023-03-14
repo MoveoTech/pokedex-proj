@@ -3,4 +3,5 @@
         <h3>Pokedex</h3>
     </header>
     <app-pokemon-filter *ngIf="!currentRouteId"></app-pokemon-filter>
+    <button class="main-btn logout-btn" (click)="onLogout()" *ngIf="isUserLogged">Log out</button>
 </nav>

@@ -1,21 +1,44 @@
 :root {
-    --clr1: #ed6d12;
+  --clr1: #ed6d12;
 
+  .main-btn {
+    background-color: var(--clr1);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      background-color: darken(#ed6d12, 10%);
+    }
+  }
+
+  .error-msg {
+    margin: 0;
+    padding-block-start: 3px;
+    color: red;
+  }
+}
+@mixin flex-center-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    font-family: sans-serif;
+  margin: 0;
+  font-family: sans-serif;
 }
 
 .main-layout {
-    padding-inline: 5rem;
+  padding-inline: 5rem;
 }
 
 a {
-    all: unset;
+  all: unset;
 }
-

@@ -1,12 +1,9 @@
-@mixin flex-center-all {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+@use '../../../styles.scss' as style;
 nav {
-  @include flex-center-all;
+  @include style.flex-center-all;
   gap: 20px;
   padding-block: 1rem;
+  position: relative;
   header {
     background-color: var(--clr1);
     color: #fff;
@@ -20,6 +17,11 @@ nav {
       font-size: 2rem;
     }
   }
-
   border-bottom: 1px solid rgba(0, 0, 0, 0.212);
+
+  .logout-btn {
+    position: absolute;
+    right: 1rem;
+}
+
 }

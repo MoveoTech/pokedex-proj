@@ -1,0 +1,1 @@
+export const AUTH_ERROR_MSG: string = 'Unauthorized email address'

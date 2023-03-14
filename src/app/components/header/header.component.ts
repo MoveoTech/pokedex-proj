@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { RouteParamsService } from '../../services/route-params.service';
 
 @Component({
@@ -9,12 +10,20 @@ import { RouteParamsService } from '../../services/route-params.service';
 })
 export class HeaderComponent implements OnInit {
   currentRouteId: number | null = null
-
-  constructor(private routeParamsService: RouteParamsService){}
+  isUserLogged: boolean = false
+  constructor(private routeParamsService: RouteParamsService, private authService: AuthService){}
 
   ngOnInit(): void {
     this.routeParamsService.pokemonTrackId.subscribe(id => {
       this.currentRouteId = id
     })
+
+    this.authService.loginStream.subscribe(isLogged => {
+      this.isUserLogged = isLogged
+    })
+  }
+
+  onLogout() {
+    this.authService.logout()
   }
 }
