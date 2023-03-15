@@ -6,6 +6,7 @@
     </header>
     <div *ngIf="isUserLogged" class="header-btns">
         <a class="main-btn" routerLink="pokemons/search-log">Search Log</a>
-        <button class="main-btn logout-btn" (click)="onLogout()">Log out</button>
+        <a class="main-btn" routerLink="my-map">My Map</a>
     </div>
+    <button class="main-btn logout-btn" (click)="onLogout()">Log out</button>
 </nav>

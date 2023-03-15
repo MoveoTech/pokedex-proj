@@ -1,6 +1,6 @@
 <div class="pokemon-filter">
     <div class="search-container">
-        <input type="text" placeholder="Search Pokemons" [(ngModel)]="searchTerm" (input)="onSearchPokemons()">
+        <input type="text" placeholder="Filter Pokemons" [(ngModel)]="searchTerm" (input)="onSearchPokemons()">
     </div>
     <select name="pokemon-types" (change)="onSelectPokemonType()" [(ngModel)]="selectedType">
         <option value="">all types</option>

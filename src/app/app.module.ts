@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PokemonSearchListComponent } from './components/pokemons/pokemon-filter/pokemon-search-list/pokemon-search-list.component';
 import { PokemonSearchItemComponent } from './components/pokemons/pokemon-filter/pokemon-search-list/pokemon-search-item/pokemon-search-item.component';
 import { PokemonSearchLogComponent } from './components/pokemons/pokemon-search-log/pokemon-search-log.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -29,13 +30,14 @@ import { PokemonSearchLogComponent } from './components/pokemons/pokemon-search-
     PokemonSearchListComponent,
     PokemonSearchItemComponent,
     PokemonSearchLogComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

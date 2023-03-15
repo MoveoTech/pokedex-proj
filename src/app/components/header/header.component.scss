@@ -1,4 +1,4 @@
-@use '../../../styles.scss' as style;
+@use "../../../styles.scss" as style;
 nav {
   @include style.flex-center-all;
   justify-content: flex-start;
@@ -21,18 +21,17 @@ nav {
   }
   border-bottom: 1px solid rgba(0, 0, 0, 0.212);
   .header-btns {
-    .logout-btn {
-      position: absolute;
-      right: 14px;
-  
-      @media(max-width: 550px) {
-        position: static;
-      }
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
   }
 
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  }
+  .logout-btn {
+    position: absolute;
+    right: 14px;
 
+    @media (max-width: 550px) {
+      position: static;
+    }
+  }
 }

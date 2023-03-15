@@ -1,0 +1,9 @@
+@use '../../../styles.scss' as style;
+.map-container {
+    height: calc(100vh - 110px);
+    @include style.flex-center-all;
+    .map {
+        height: 500px;
+        width: 500px;
+    }
+}
