@@ -1,37 +1,46 @@
-@use "../../../styles.scss" as style;
-nav {
-  @include style.flex-center-all;
-  justify-content: flex-start;
-  gap: 20px;
-  padding-block: 14px;
-  position: relative;
-  header {
-    background-color: var(--clr1);
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-    text-transform: uppercase;
-    border-radius: 7px;
-    cursor: pointer;
-    h3 {
-      margin: 0;
-      padding: 0;
-      font-size: 28px;
+  @use "../../../styles.scss" as style;
+  nav {
+    @include style.flex-center-all;
+    justify-content: flex-start;
+    gap: 20px;
+    padding-block: 10px;
+    position: relative;
+    header {
+      gap: 5px;
+      color: #010101;
+      padding: 20px;
+      text-align: center;
+      text-transform: uppercase;
+      border-radius: 7px;
+      font-family: 'OmegaRuby';
+      font-size: 40px;
+      cursor: pointer;
+      
+      img {
+        max-height: 75px;
+      }
+      a {
+        display: flex;
+        align-items: center;
+        
+        img {
+          margin-left: 7px;
+        }
+      }
+    }
+    border-bottom: 1px solid rgba(0, 0, 0, 0.212);
+    .header-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .logout-btn {
+      position: absolute;
+      right: 14px;
+
+      @media (max-width: 550px) {
+        position: static;
+      }
     }
   }
-  border-bottom: 1px solid rgba(0, 0, 0, 0.212);
-  .header-btns {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-
-  .logout-btn {
-    position: absolute;
-    right: 14px;
-
-    @media (max-width: 550px) {
-      position: static;
-    }
-  }
-}
