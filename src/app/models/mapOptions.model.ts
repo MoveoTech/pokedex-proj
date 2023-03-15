@@ -1,10 +1,10 @@
 export interface IMapOptions {
-    center: Location,
+    center: ILocation,
     zoom: number,
 
 }
 
-export interface Location {
+export interface ILocation {
     lat: number,
     lng: number
 }

@@ -1,9 +1,19 @@
 @use '../../../styles.scss' as style;
 .map-container {
-    height: calc(100vh - 110px);
     @include style.flex-center-all;
+    height: var(--page_height);
+    flex-direction: row-reverse;
+    gap: 14px;
+    margin-block-start: 15px;
     .map {
         height: 500px;
         width: 500px;
+    }
+
+    input {
+        align-self: flex-start;
+        position: relative;
+        top: 90px;
+        width: 30%;
     }
 }

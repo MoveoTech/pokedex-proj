@@ -5,7 +5,7 @@ $form-input-border-color: #ccc;
 @use "../../../styles.scss" as style;
 
 .login-container {
-  height: calc(100vh - 110px);
+  min-height: var(--page_height);
   display: flex;
   justify-content: center;
   align-items: center;

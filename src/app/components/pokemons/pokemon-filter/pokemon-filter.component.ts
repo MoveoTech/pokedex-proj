@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PokemonService } from 'src/app/services/pokemon.service';
-import { POKEMON_TYPES } from '../constants/pokemonTypesData';
+import { POKEMON_TYPES } from '../../../constants/pokemonTypesData';
 @Component({
   selector: 'app-pokemon-filter',
   templateUrl: './pokemon-filter.component.html',

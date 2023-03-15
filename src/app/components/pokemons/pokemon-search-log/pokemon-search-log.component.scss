@@ -1,13 +1,14 @@
 @use '../../../../styles.scss' as style;
 .search-log {
-    height: calc(100vh - 110px);
     text-transform: capitalize;
+    min-height: var(--page_height);
     @include style.flex-center-all;
     flex-direction: column;
     justify-content: flex-start;
     gap: 20px;
-    margin-top: 14px;
     .search-log-header {
+        position: relative;
+        top: 14px;
         display: flex;
         flex-direction: column;
         align-items: center;

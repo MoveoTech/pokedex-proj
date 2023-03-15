@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { RouteParamsService } from '../../services/route-params.service';
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,7 +11,6 @@ import { RouteParamsService } from '../../services/route-params.service';
 export class HeaderComponent implements OnInit, OnDestroy{
   isUserLogged: boolean = false
   loginSub!: Subscription
-
   constructor(private routeParamsService: RouteParamsService, private authService: AuthService, private router: Router){}
 
   ngOnInit(): void {

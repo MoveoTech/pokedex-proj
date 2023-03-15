@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { RouteParamsService } from 'src/app/services/route-params.service';
 import {  NgForm } from '@angular/forms'
 import { Router } from '@angular/router';
-import { AUTH_ERROR_MSG } from '../pokemons/constants/errorMessages';
+import { AUTH_ERROR_MSG } from '../../constants/errorMessages';
 import { Subscription } from 'rxjs';
 
 @Component({
