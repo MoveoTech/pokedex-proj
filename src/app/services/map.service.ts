@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import '@googlemaps/js-api-loader';
+import { Loader } from '@googlemaps/js-api-loader';
 import { environment } from 'src/environments/environment';
-import { IMapOptions } from '../models/mapOptions.model';
+import {} from 'google.maps';
+import { destinationLoc } from '../constants/mapConstants';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,19 @@ export class MapService {
 
   constructor() {}
 
-  // Connecting to google api before initializing the map, then initializing the map
-  async initMap(mapEl: HTMLElement, mapOptions: IMapOptions) {
-    await this._connectGoogleApi();
-    this.map = new google.maps.Map(mapEl, mapOptions);
+  async initMap(mapEl: HTMLElement) {
+    const loader = new Loader({
+      apiKey: environment.mapApiKey,
+      version: "weekly",
+      libraries: ["places", "marker"]
+    });
+
+    return loader.load().then(() => {
+      this.map = new google.maps.Map(mapEl, {
+        center: destinationLoc,
+        zoom: 15,
+      });
+    });
   }
 
   getMap(): google.maps.Map {
@@ -28,18 +38,4 @@ export class MapService {
     })
   }
 
-  // Private method connecting to google maps service
-  _connectGoogleApi() {
-    if (window.google) return Promise.resolve();
-    const API_KEY = environment.mapApiKey;
-    var elGoogleApi = document.createElement('script');
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`;
-    elGoogleApi.async = true;
-    document.body.append(elGoogleApi);
-
-    return new Promise((resolve, reject) => {
-      elGoogleApi.onload = resolve;
-      elGoogleApi.onerror = () => reject('Google script failed to load');
-    });
-  }
 }

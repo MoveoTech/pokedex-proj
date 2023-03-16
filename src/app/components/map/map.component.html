@@ -3,9 +3,25 @@
         <div class="map-actions">
             <input type="text" #acInput [(ngModel)]="acInputTxt">
             <button (click)="onToggleWorkDirection()">
-                <span *ngIf="isGoingToWork; else elseBlock">Go To Work</span>
-                <ng-template #elseBlock>Cancel</ng-template>
+                {{!isGoingToWork ? "go to work" : "cancel go to work"}}
             </button>
+        </div>
+        <div #styleSelectorControl class="map-control">
+            <select #styleSelector class="selector-control" (change)="onChangeMapStyle()">
+                <option value="default">Default</option>
+                <option value="silver">Silver</option>
+                <option value="night">Night mode</option>
+                <option value="retro" selected="selected">Retro</option>
+                <option value="hiding">Hide features</option>
+            </select>
+        </div>
+        <div #travelModeControl class="map-control">
+            <select #travelModeSelector class="selector-control" (change)="onChangeTravelMode()">
+                <option value="DRIVING" selected="selected">Driving</option>
+                <option value="WALKING">Walking</option>
+                <option value="BICYCLING">Bicycling</option>
+                <option value="TRANSIT" >Transit</option>
+            </select>
         </div>
         <div #mapEl class="map"></div>
     </div>
