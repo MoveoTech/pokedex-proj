@@ -1,7 +1,17 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { mapStyles } from 'src/app/constants/mapStyle';
+import {
+  destinationLoc,
+  homeLoc,
+  mapStyles,
+} from 'src/app/constants/mapConstants';
 import { ILocation } from 'src/app/models/mapOptions.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { MapService } from 'src/app/services/map.service';
@@ -16,9 +26,10 @@ export class MapComponent implements OnInit, OnDestroy {
   private map!: google.maps.Map;
   private autocompletion!: google.maps.places.Autocomplete;
   private loginSub: Subscription;
-  private directionsService!: google.maps.DirectionsService
-  private directionsRequest!: google.maps.DirectionsRequest
-  private directionsRenderer!: google.maps.DirectionsRenderer
+  private directionsService!: google.maps.DirectionsService;
+  private directionsRequest!: google.maps.DirectionsRequest;
+  private directionsRenderer!: google.maps.DirectionsRenderer;
+  isGoingToWork: boolean = true;
   acInputTxt: string = '';
 
   constructor(
@@ -31,7 +42,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     const mapEl = this.mapEl.nativeElement;
-    let loc: ILocation = {lat: 32.0624536, lng: 34.771485}
+    let loc: ILocation = { lat: 32.0624536, lng: 34.771485 };
     const mapOptions = {
       center: loc,
       zoom: 14,
@@ -41,8 +52,8 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map = this.mapService.getMap();
     this.mapService.addMarker(this.map, loc);
     this.initAutoCompletion();
-    this.directionsService = new google.maps.DirectionsService()
-    this.directionsRenderer = new google.maps.DirectionsRenderer()
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsRenderer = new google.maps.DirectionsRenderer();
     this.directionsRenderer.setMap(this.map);
 
     this.loginSub = this.authService.loginStream.subscribe((isLogged) => {
@@ -77,20 +88,30 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  onGoToWork() {
+  onToggleWorkDirection() {
+
+    // set the directions request
+
     this.directionsRequest = {
-      origin: {lat: 32.0624536, lng: 34.771485},
-      destination: {lat: 32.0497089, lng: 34.7616289},
-      travelMode: google.maps.TravelMode.DRIVING
-    }
+      origin: homeLoc,
+      destination: destinationLoc,
+      travelMode: google.maps.TravelMode.DRIVING,
+    };
+
+    // send the directions route with a callback to then toggle it on the map
+
     this.directionsService.route(this.directionsRequest, (result, status) => {
-      if(status === 'OK' ) {
+      if (status === 'OK' && this.isGoingToWork) {
         this.directionsRenderer.setDirections(result);
+      } else {
+        this.directionsRenderer.set('directions', null)
+        
       }
-    })
+      this.isGoingToWork = !this.isGoingToWork;
+    });
   }
 
   ngOnDestroy(): void {
-    this.loginSub.unsubscribe()
+    this.loginSub.unsubscribe();
   }
 }

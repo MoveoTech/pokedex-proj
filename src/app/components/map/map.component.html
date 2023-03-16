@@ -1,6 +1,12 @@
-
 <div class="map-container">
-    <input type="text" #acInput [(ngModel)]="acInputTxt">
-    <button (click)="onGoToWork()">Go to work</button>
-    <div #mapEl class="map"></div>
+    <div class="wrapper">
+        <div class="map-actions">
+            <input type="text" #acInput [(ngModel)]="acInputTxt">
+            <button (click)="onToggleWorkDirection()">
+                <span *ngIf="isGoingToWork; else elseBlock">Go To Work</span>
+                <ng-template #elseBlock>Cancel</ng-template>
+            </button>
+        </div>
+        <div #mapEl class="map"></div>
+    </div>
 </div>

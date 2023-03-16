@@ -4,16 +4,30 @@
     height: var(--page_height);
     flex-direction: row-reverse;
     gap: 14px;
-    margin-block-start: 15px;
+    
+    .wrapper {
+        height: fit-content;
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 7px;
+    }
+
     .map {
         height: 500px;
         width: 500px;
     }
 
+    .map-actions {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 7px;
+        align-self: flex-start;
+
+    }
     input {
         align-self: flex-start;
-        position: relative;
-        top: 90px;
-        width: 30%;
+        // position: relative;
+        // top: 90px;
+        // width: 30%;
     }
 }

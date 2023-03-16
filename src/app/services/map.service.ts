@@ -11,7 +11,7 @@ export class MapService {
 
   constructor() {}
 
-  // Connecting to google api before initializing the map, return
+  // Connecting to google api before initializing the map, then initializing the map
   async initMap(mapEl: HTMLElement, mapOptions: IMapOptions) {
     await this._connectGoogleApi();
     this.map = new google.maps.Map(mapEl, mapOptions);
